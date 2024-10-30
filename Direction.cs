@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Snake_Game
 {
-    internal class Direction
+    internal enum Direction
     {
         Up,
         Down,

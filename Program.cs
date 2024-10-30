@@ -5,6 +5,7 @@ Random rand = new Random();
 Coord applePos = new Coord(rand.Next(1, gridDimensions.X - 1), rand.Next(1, gridDimensions.Y - 1));
 int frameDelayMilli = 100;
 Direction movementDirection = Direction.Down;
+int score = 0;
 
 List<Coord> snakePosHistory = new List<Coord>();
 int tailLength = 1;
@@ -12,6 +13,7 @@ int tailLength = 1;
 while (true)
 { 
     Console.Clear();
+    Console.WriteLine("Score:  " + score);
     snakePos.ApplyMovementDirection(movementDirection);
 
     for (int y = 0; y < gridDimensions.Y; y++)
@@ -34,6 +36,17 @@ while (true)
         Console.WriteLine();
        
     }
+    if(snakePos.Equals(applePos))
+    {
+        tailLength++;
+        score++;
+        applePos = new Coord(rand.Next(1, gridDimensions.X - 1), rand.Next(gridDimensions.Y - 1));
+        
+    }
+
+
+
+
     snakePosHistory.Add(new Coord(snakePos.X, snakePos.Y));
 
     if (snakePosHistory.Count > tailLength)

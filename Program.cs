@@ -6,6 +6,9 @@ Coord applePos = new Coord(rand.Next(1, gridDimensions.X - 1), rand.Next(1, grid
 int frameDelayMilli = 100;
 Direction movementDirection = Direction.Down;
 
+List<Coord> snakePosHistory = new List<Coord>();
+int tailLength = 1;
+
 while (true)
 { 
     Console.Clear();
@@ -17,7 +20,7 @@ while (true)
         {
             Coord currentCoord = new Coord(x, y);
 
-            if (snakePos.Equals(currentCoord))
+            if (snakePos.Equals(currentCoord) || snakePosHistory.Contains(currentCoord))
                 Console.Write('■');
             else if (applePos.Equals(currentCoord))
                 Console.Write("a");
@@ -31,6 +34,10 @@ while (true)
         Console.WriteLine();
        
     }
+    snakePosHistory.Add(new Coord(snakePos.X, snakePos.Y));
+
+    if (snakePosHistory.Count > tailLength)
+        snakePosHistory.RemoveAt(0);
     DateTime time = DateTime.Now;
 
     while((DateTime.Now -time).Milliseconds < frameDelayMilli)
@@ -43,7 +50,7 @@ while (true)
                 case ConsoleKey.LeftArrow:
                     movementDirection = Direction.Left;
                     break;
-                case ConsoleKey.RighttArrow:
+                case ConsoleKey.RightArrow:
                     movementDirection = Direction.Right;
                     break;
                 case ConsoleKey.UpArrow:

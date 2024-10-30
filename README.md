@@ -2,7 +2,7 @@
 
 Welcome to the Console Snake Game project! This is a classic Snake game implemented in C# for the console. The game is simple yet addictive, where the player controls a snake to eat food and grow longer while avoiding collisions with the walls and itself.
 
-### Features
+### Game Features
 - **Classic Gameplay**: Enjoy the traditional Snake game mechanics.
 - **Smooth Controls**: Use arrow keys to navigate the snake.
 - **Score Tracking**: Keep track of your score as the snake grows.

@@ -11,7 +11,7 @@ List<Coord> snakePosHistory = new List<Coord>();
 int tailLength = 1;
 
 while (true)
-{ 
+{
     Console.Clear();
     Console.WriteLine("Score:  " + score);
     snakePos.ApplyMovementDirection(movementDirection);
@@ -34,7 +34,7 @@ while (true)
             }
         }
         Console.WriteLine();
-       
+
     }
     if (snakePos.Equals(applePos))
     {
@@ -44,13 +44,17 @@ while (true)
 
     }
     else if (snakePos.X == 0 || snakePos.Y == 0 ||
-        snakePos.X == gridDimensions.X - 1 || snakePos.Y == gridDimensions.Y - 1||snakePosHistory.Contains(snakePos))
+        snakePos.X == gridDimensions.X - 1 || snakePos.Y == gridDimensions.Y - 1 || snakePosHistory.Contains(snakePos))
     {
         score = 0;
         tailLength = 1;
         snakePos = new Coord(10, 1);
         snakePosHistory.Clear();
         movementDirection = Direction.Down;
+
+        //Here it's game over
+        GameOver();
+
         continue;
     }
 
@@ -62,12 +66,12 @@ while (true)
         snakePosHistory.RemoveAt(0);
     DateTime time = DateTime.Now;
 
-    while((DateTime.Now -time).Milliseconds < frameDelayMilli)
+    while ((DateTime.Now - time).Milliseconds < frameDelayMilli)
     {
-        if(Console.KeyAvailable)
+        if (Console.KeyAvailable)
         {
             ConsoleKey key = Console.ReadKey().Key;
-            switch(key)
+            switch (key)
             {
                 case ConsoleKey.LeftArrow:
                     movementDirection = Direction.Left;
@@ -81,10 +85,26 @@ while (true)
                 case ConsoleKey.DownArrow:
                     movementDirection = Direction.Down;
                     break;
+                case ConsoleKey.P:
+                    //Pause the game with the 
+                    PauseGame();
+                    break;
             }
         }
-
-
     }
 
+}
+
+static void PauseGame()
+{
+    Console.CursorLeft = 0;
+    Console.Write("Game has been paused, Press any key to un-pause");
+    Console.ReadKey(false);
+}
+
+static void GameOver()
+{
+    Console.CursorLeft = 0;
+    Console.Write("Game over, press any key to start over.");
+    Console.ReadKey(false);
 }
